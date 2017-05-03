@@ -1,0 +1,61 @@
+{
+  "name": "movie-checker-bot",
+  "version": "0.1.0",
+  "description": "Telegram bot that helps you quickly check basic movie info",
+  "scripts": {
+    "start": "node dist",
+    "start:dev": "babel-node src",
+    "prebuild": "rimraf dist",
+    "build": "babel --out-dir dist src",
+    "build:watch": "npm run build -- --watch",
+    "lint": "eslint --fix src",
+    "precommit": "npm run lint"
+  },
+  "author": {
+    "name": "Ramón Guijarro",
+    "email": "hola@soyguijarro.com",
+    "url": "http://soyguijarro.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soyguijarro/movie-checker-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/soyguijarro/movie-checker-bot/issues"
+  },
+  "homepage": "https://github.com/soyguijarro/movie-checker-bot#readme",
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "rules": {
+      "import/prefer-default-export": "off"
+    }
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-preset-env": "1.4.0",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb-base": "11.1.3",
+    "eslint-plugin-import": "2.2.0",
+    "husky": "0.13.3",
+    "rimraf": "2.6.1"
+  },
+  "dependencies": {
+    "date-fns": "1.28.4",
+    "moviedb": "0.2.8",
+    "request": "2.81.0",
+    "slimbot": "0.5.9"
+  }
+}
