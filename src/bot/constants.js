@@ -14,6 +14,7 @@ export const MESSAGES = {
       '• Type /help at any time to read these instructions again.',
     ]),
     'Please note release dates and any other region-specific details correspond to the US at the moment.',
+    '_This product uses the TMDb API but is not endorsed or certified by TMDb._',
   ]),
   error: () => '😓 Sorry, something went wrong. Please try again.',
   unknown: () => '😕 Unknown command. Type /help for instructions on how to use this bot.',
