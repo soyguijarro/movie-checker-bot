@@ -1,4 +1,4 @@
-import { start, help, unknown, search, details } from './commands';
+import { start, help, unknown, movie, movieDetails } from './commands';
 import { joinArrayBy } from '../utils';
 
 const joinBySpace = joinArrayBy(' ');
@@ -21,7 +21,7 @@ export const onMessage = bot => (message) => {
 
   if (command === 'start') return start(bot, chatId);
   if (command === 'help') return help(bot, chatId);
-  if (command === 'search') return search(bot, query, chatId);
+  if (command === 'movie') return movie(bot, query, chatId);
   return unknown(bot, chatId);
 };
 
@@ -29,6 +29,6 @@ export const onCallbackQuery = bot => ({ data, message }) => {
   const { command, query } = parseUserInput(data);
   const { chatId, messageId } = getMessageMetadata(message);
 
-  if (command === 'details') return details(bot, query, chatId, messageId);
+  if (command === 'movieDetails') return movieDetails(bot, query, chatId, messageId);
   return null;
 };

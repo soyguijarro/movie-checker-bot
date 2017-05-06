@@ -13,7 +13,7 @@ export const start = help;
 
 export const unknown = (bot, chatId) => sendUnknownMessage(bot, chatId);
 
-export const details = (bot, movieId, chatId, messageId) => {
+export const movieDetails = (bot, movieId, chatId, messageId) => {
   if (!movieId || !isPositiveInteger(movieId)) {
     return sendErrorMessage(bot, chatId, messageId);
   }
@@ -24,7 +24,7 @@ export const details = (bot, movieId, chatId, messageId) => {
     .catch(() => sendErrorMessage(bot, chatId, messageId));
 };
 
-export const search = (bot, query, chatId) => {
+export const movie = (bot, query, chatId) => {
   if (!query || !query.length) return sendErrorMessage(bot, chatId);
 
   return fetchMovieMatches(query)
@@ -32,7 +32,7 @@ export const search = (bot, query, chatId) => {
     .then((movies) => {
       if (!movies.length) return sendNoResultsMessage(bot, query, chatId);
       if (movies.length > 1) return sendMovieDisambiguationMessage(bot, movies, chatId);
-      return details(bot, getId(movies[0]), chatId);
+      return movieDetails(bot, getId(movies[0]), chatId);
     })
     .catch(() => sendErrorMessage(bot, chatId));
 };
