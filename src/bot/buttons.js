@@ -1,9 +1,20 @@
-import { getId, getSummary, getExternalLinks } from '../data/formatters';
+import {
+  getMovieId, getMovieSummary, getMovieExternalLinks,
+  getPersonId, getPersonSummary, getPersonExternalLinks,
+} from '../data/formatters';
 
-export const getDisambiguationButtons = movies =>
+export const getMovieDisambiguationButtons = movies =>
   movies.map(movie => [{
-    text: getSummary(movie),
-    callback_data: `details ${getId(movie)}`,
+    text: getMovieSummary(movie),
+    callback_data: `movieDetails ${getMovieId(movie)}`,
   }]);
 
-export const getExternalLinksButtons = getExternalLinks;
+export const getMovieExternalLinksButtons = getMovieExternalLinks;
+
+export const getPersonDisambiguationButtons = people =>
+  people.map(person => [{
+    text: getPersonSummary(person),
+    callback_data: `personDetails ${getPersonId(person)}`,
+  }]);
+
+export const getPersonExternalLinksButtons = getPersonExternalLinks;

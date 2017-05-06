@@ -1,5 +1,8 @@
-import { getDetails } from '../data/formatters';
-import { getDisambiguationButtons, getExternalLinksButtons } from './buttons';
+import { getMovieDetails, getPersonDetails } from '../data/formatters';
+import {
+  getMovieDisambiguationButtons, getMovieExternalLinksButtons,
+  getPersonDisambiguationButtons, getPersonExternalLinksButtons,
+} from './buttons';
 import { MESSAGES } from './constants';
 
 const getInlineKeyboardParams = buttons => ({
@@ -30,15 +33,31 @@ export const sendNoResultsMessage = (bot, query, chatId, messageId) =>
 export const sendMovieDisambiguationMessage = (bot, movies, chatId, messageId) =>
   sendMessage(
     bot,
-    MESSAGES.disambiguation(),
+    MESSAGES.disambiguation('movie'),
     chatId, messageId,
-    getInlineKeyboardParams(getDisambiguationButtons(movies)),
+    getInlineKeyboardParams(getMovieDisambiguationButtons(movies)),
   );
 
 export const sendMovieDetailsMessage = (bot, movie, chatId, messageId) =>
   sendMessage(
     bot,
-    getDetails(movie),
+    getMovieDetails(movie),
     chatId, messageId,
-    getInlineKeyboardParams([getExternalLinksButtons(movie)]),
+    getInlineKeyboardParams([getMovieExternalLinksButtons(movie)]),
+  );
+
+export const sendPersonDisambiguationMessage = (bot, people, chatId, messageId) =>
+  sendMessage(
+    bot,
+    MESSAGES.disambiguation('person'),
+    chatId, messageId,
+    getInlineKeyboardParams(getPersonDisambiguationButtons(people)),
+  );
+
+export const sendPersonDetailsMessage = (bot, person, chatId, messageId) =>
+  sendMessage(
+    bot,
+    getPersonDetails(person),
+    chatId, messageId,
+    getInlineKeyboardParams([getPersonExternalLinksButtons(person)]),
   );

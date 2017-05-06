@@ -6,7 +6,7 @@ import { PROPS_SETTINGS, PROPS_CONSTANTS } from './constants';
 const { SCORE_DECIMALS, MAX_ACTORS_TO_SHOW } = PROPS_SETTINGS;
 const { MIN_SCORE, MAX_SCORE } = PROPS_CONSTANTS;
 
-const parseReleaseDate = date => (isDateValid(date) ? new Date(date) : null);
+const parseDate = date => (date && isDateValid(date) ? new Date(date) : null);
 
 const parseCountries = (countries = []) => countries.map(country => country.name);
 
@@ -53,7 +53,7 @@ export const parseMovie = ({
     IMDbId,
     title,
     originalTitle,
-    releaseDate: parseReleaseDate(releaseDate),
+    releaseDate: parseDate(releaseDate),
     countries: parseCountries(countries),
     runtime: parseRuntime(runtime),
     score: parseScore(score),
@@ -63,3 +63,21 @@ export const parseMovie = ({
   },
   parseCrew(crew),
 );
+
+export const parsePerson = ({
+  id,
+  imdb_id: IMDbId,
+  name,
+  birthday,
+  deathday,
+  place_of_birth: placeOfBirth,
+  biography,
+}) => ({
+  id,
+  IMDbId,
+  name,
+  birthday: parseDate(birthday),
+  deathday: parseDate(deathday),
+  placeOfBirth,
+  biography,
+});
