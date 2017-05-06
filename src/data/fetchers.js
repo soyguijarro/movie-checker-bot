@@ -34,3 +34,19 @@ const fetchMovieCredits = id =>
 export const fetchMovieDetails = id =>
   Promise.all([fetchMovieInfo(id), fetchMovieCredits(id)])
     .then(([info, credits]) => Object.assign({}, info, credits));
+
+export const fetchPersonMatches = query =>
+  new Promise((resolve, reject) => {
+    api.searchPerson({ query }, (error, response) => {
+      if (error || !response) return reject(error);
+      return resolve(response.results || []);
+    });
+  });
+
+export const fetchPersonDetails = id =>
+  new Promise((resolve, reject) => {
+    api.personInfo({ id }, (error, response) => {
+      if (error || !response) return reject(error);
+      return resolve(response);
+    });
+  });
