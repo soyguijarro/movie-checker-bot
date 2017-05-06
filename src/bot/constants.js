@@ -18,6 +18,6 @@ export const MESSAGES = {
   ]),
   error: () => '😓 Sorry, something went wrong. Please try again.',
   unknown: () => '😕 Unknown command. Type /help for instructions on how to use this bot.',
-  noResults: query => `😞 Sorry, no movies for *${query}*.`,
-  disambiguation: () => '🤔 Which movie do you mean?',
+  noResults: query => `😞 Sorry, no results for *${query}*.`,
+  disambiguation: type => `🤔 Which ${type} do you mean?`,
 };

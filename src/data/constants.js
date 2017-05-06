@@ -10,6 +10,8 @@ export const PROPS_FORMATTERS = {
   directors: directors => `🎬 Directed by ${directors}`,
   writers: writers => `✍ Written by ${writers}`,
   cast: cast => `🎭 Starring ${cast}`,
+  birthday: birthday => `🎂 ${birthday}`,
+  placeOfBirth: placeOfBirth => `🌐 ${placeOfBirth}`,
 };
 
 export const PROPS_CONSTANTS = {
