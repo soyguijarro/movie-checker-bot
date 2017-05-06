@@ -1,5 +1,7 @@
-import { formatDate, formatYear, getAge, joinArrayBy, getStringBeforeChar, identity } from '../utils';
-import { PROPS_FORMATTERS } from './constants';
+import {
+  formatDate, formatYear, getAge, joinArrayBy, truncateString, sanitizeString, identity,
+} from '../utils';
+import { PROPS_FORMATTERS, PROPS_SETTINGS } from './constants';
 
 const joinBySpace = joinArrayBy('  ');
 const joinByCommas = joinArrayBy(', ');
@@ -75,11 +77,17 @@ export const getMovieDetails = (movie) => {
   ]);
 };
 
-export const getMovieExternalLinks = movie => [
-  { text: 'TMDb', url: getMovieTMDbLink(movie) },
-  { text: 'IMDb', url: getMovieIMDbLink(movie) },
-  { text: 'Letterboxd', url: getMovieLetterboxdLink(movie) },
-];
+export const getMovieExternalLinks = (movie) => {
+  const TMDbLink = getMovieTMDbLink(movie);
+  const IMDBLink = getMovieIMDbLink(movie);
+  const letterboxdLink = getMovieLetterboxdLink(movie);
+
+  const externalLinks = [{ text: 'TMDb', url: TMDbLink }];
+  if (IMDBLink) externalLinks.push({ text: 'IMDb', url: IMDBLink });
+  if (letterboxdLink) externalLinks.push({ text: 'Letterboxd', url: letterboxdLink });
+
+  return externalLinks;
+};
 
 const getPersonName = getFormattedProp('', 'name', identity);
 
@@ -90,14 +98,17 @@ const getPersonDeathday = getFormattedProp('', 'deathday', formatDate);
 const getPersonBirthAndDeath = (person) => {
   const birthday = getPersonBirthday(person);
   const deathday = getPersonDeathday(person);
-  const age = getAge(person.birthday, person.deathday);
+  const age = person.birthday ? getAge(person.birthday, person.deathday) : null;
 
-  return `${birthday}${deathday ? ` — ${deathday}` : ''} (age ${age})`;
+  return `${birthday}${deathday ? ` — ${deathday}` : ''}${age ? ` (age ${age})` : ''}`;
 };
 
 const getPersonPlaceofBirth = getFormattedProp('–', 'placeOfBirth', identity);
 
-const getPersonBiography = getFormattedProp('', 'biography', getStringBeforeChar('\n'));
+const sanitizeBiography = sanitizeString(...PROPS_SETTINGS.BIOGRAPHY_REMOVALS);
+const getPersonBiography = getFormattedProp('', 'biography',
+  text => truncateString(PROPS_SETTINGS.MAX_BIOGRAPHY_LENGTH)(sanitizeBiography(text)),
+);
 
 const getPersonTMDbLink = getFormattedProp('', 'id', id => `https://www.themoviedb.org/person/${id}`);
 
@@ -117,7 +128,12 @@ export const getPersonDetails = (person) => {
   ]);
 };
 
-export const getPersonExternalLinks = movie => [
-  { text: 'TMDb', url: getPersonTMDbLink(movie) },
-  { text: 'IMDb', url: getPersonIMDbLink(movie) },
-];
+export const getPersonExternalLinks = (movie) => {
+  const TMDbLink = getPersonTMDbLink(movie);
+  const IMDBLink = getPersonIMDbLink(movie);
+
+  const externalLinks = [{ text: 'TMDb', url: TMDbLink }];
+  if (IMDBLink) externalLinks.push({ text: 'IMDb', url: getPersonIMDbLink(movie) });
+
+  return externalLinks;
+};

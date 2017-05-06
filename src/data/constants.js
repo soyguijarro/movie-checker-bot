@@ -22,4 +22,9 @@ export const PROPS_CONSTANTS = {
 export const PROPS_SETTINGS = {
   SCORE_DECIMALS: 1,
   MAX_ACTORS_TO_SHOW: 5,
+  MAX_BIOGRAPHY_LENGTH: 500,
+  BIOGRAPHY_REMOVALS: [
+    /From Wikipedia, the free encyclopedia(.)?/g,
+    /\n\n/g,
+  ],
 };

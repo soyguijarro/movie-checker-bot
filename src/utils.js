@@ -15,7 +15,13 @@ export const isWithinRange = (min, max) => value =>
 
 export const doStringsMatch = (a, b) => a.toLowerCase() === b.toLowerCase();
 
-export const getStringBeforeChar = char => string => string.split(char, 1)[0];
+export const truncateString = numberOfChars => string =>
+  (string.length > numberOfChars ? `${string.slice(0, numberOfChars)}…` : string);
+
+export const sanitizeString = (...regExps) => string =>
+  [...regExps]
+    .reduce((prevString, regExp) => prevString.replace(regExp, ' '), string)
+    .trim();
 
 export const joinArrayBy = separator => array => array.join(separator);
 

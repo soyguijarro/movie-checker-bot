@@ -6,7 +6,7 @@ import { PROPS_SETTINGS, PROPS_CONSTANTS } from './constants';
 const { SCORE_DECIMALS, MAX_ACTORS_TO_SHOW } = PROPS_SETTINGS;
 const { MIN_SCORE, MAX_SCORE } = PROPS_CONSTANTS;
 
-const parseDate = date => (isDateValid(date) ? new Date(date) : null);
+const parseDate = date => (date && isDateValid(date) ? new Date(date) : null);
 
 const parseCountries = (countries = []) => countries.map(country => country.name);
 
