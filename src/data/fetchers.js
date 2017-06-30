@@ -33,7 +33,7 @@ const fetchMovieCredits = id =>
 
 export const fetchMovieDetails = id =>
   Promise.all([fetchMovieInfo(id), fetchMovieCredits(id)])
-    .then(([info, credits]) => Object.assign({}, info, credits));
+    .then(([info, credits]) => ({ ...info, ...credits }));
 
 export const fetchPersonMatches = query =>
   new Promise((resolve, reject) => {

@@ -12,7 +12,7 @@ const getInlineKeyboardParams = buttons => ({
 });
 
 const sendMessage = (bot, message, chatId, messageId, params = {}) => {
-  const finalParams = Object.assign({}, { parse_mode: 'Markdown' }, params);
+  const finalParams = { parse_mode: 'Markdown', ...params };
 
   if (messageId) return bot.editMessageText(chatId, messageId, message, finalParams);
   return bot.sendMessage(chatId, message, finalParams);

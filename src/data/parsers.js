@@ -47,22 +47,20 @@ export const parseMovie = ({
   crew,
   cast,
   overview: plot,
-}) => Object.assign(
-  {
-    id,
-    IMDbId,
-    title,
-    originalTitle,
-    releaseDate: parseDate(releaseDate),
-    countries: parseCountries(countries),
-    runtime: parseRuntime(runtime),
-    score: parseScore(score),
-    genres: parseGenres(genres),
-    cast: parseCast(cast),
-    plot,
-  },
-  parseCrew(crew),
-);
+}) => ({
+  id,
+  IMDbId,
+  title,
+  originalTitle,
+  releaseDate: parseDate(releaseDate),
+  countries: parseCountries(countries),
+  runtime: parseRuntime(runtime),
+  score: parseScore(score),
+  genres: parseGenres(genres),
+  cast: parseCast(cast),
+  plot,
+  ...parseCrew(crew),
+});
 
 export const parsePerson = ({
   id,
