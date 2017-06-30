@@ -9,7 +9,10 @@
     "build": "babel --out-dir dist src",
     "build:watch": "npm run build -- --watch",
     "lint": "eslint --fix src",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "predeploy": "now ls movie-checker-bot > /dev/null 2>&1 && now rm -y movie-checker-bot || :",
+    "deploy": "now --dotenv --public",
+    "postdeploy": "now scale $NOW_URL 1"
   },
   "author": {
     "name": "Ramón Guijarro",
