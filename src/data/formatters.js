@@ -1,5 +1,6 @@
 import {
-  formatDate, formatYear, getAge, joinArrayBy, truncateString, sanitizeString, identity,
+  formatDate, formatYear, formatMoney, getPercentageGain, getAge, joinArrayBy,
+  truncateString, sanitizeString, identity,
 } from '../utils';
 import { PROPS_FORMATTERS, PROPS_SETTINGS } from './constants';
 
@@ -25,6 +26,10 @@ const getMovieReleaseYear = getFormattedProp('', 'releaseDate', formatYear, 'rel
 const getMovieReleaseDate = getFormattedProp('–', 'releaseDate', formatDate);
 
 const getMovieRuntime = getFormattedProp('–', 'runtime', identity);
+
+const getMovieRevenue = getFormattedProp('–', 'revenue', formatMoney);
+
+const getMovieBudget = getFormattedProp('', 'budget', formatMoney);
 
 const getMovieScore = getFormattedProp('–', 'score', identity);
 
@@ -62,10 +67,20 @@ const getMovieFullTitle = (movie) => {
   return `*${title}*${originalTitle !== title ? `\n${originalTitle}` : ''}`;
 };
 
+const getMovieRelativeProfit = movie =>
+  (movie.budget && movie.revenue ? getPercentageGain(movie.budget, movie.revenue) : null);
+const getMovieMoney = (movie) => {
+  const revenue = getMovieRevenue(movie);
+  const budget = getMovieBudget(movie);
+  const relativeProfit = getMovieRelativeProfit(movie);
+
+  return `${revenue}${budget ? ` over ${budget}` : ''}${relativeProfit ? ` (${relativeProfit})` : ''}`;
+};
+
 export const getMovieDetails = (movie) => {
   const factsBlock = [
     joinBySpace([getMovieReleaseDate(movie), getMovieRuntime(movie), getMovieScore(movie)]),
-    getMovieGenres(movie), getMovieCountries(movie),
+    getMovieGenres(movie), getMovieCountries(movie), getMovieMoney(movie),
   ];
   const castAndCrewBlock = [getMovieDirectors(movie), getMovieWriters(movie), getMovieCast(movie)];
 
@@ -95,10 +110,11 @@ const getPersonBirthday = getFormattedProp('–', 'birthday', formatDate);
 
 const getPersonDeathday = getFormattedProp('', 'deathday', formatDate);
 
+const getPersonAge = person => (person.birthday ? getAge(person.birthday, person.deathday) : null);
 const getPersonBirthAndDeath = (person) => {
   const birthday = getPersonBirthday(person);
   const deathday = getPersonDeathday(person);
-  const age = person.birthday ? getAge(person.birthday, person.deathday) : null;
+  const age = getPersonAge(person);
 
   return `${birthday}${deathday ? ` — ${deathday}` : ''}${age ? ` (age ${age})` : ''}`;
 };

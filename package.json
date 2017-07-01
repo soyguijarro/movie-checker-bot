@@ -60,6 +60,7 @@
   "dependencies": {
     "date-fns": "1.28.4",
     "moviedb": "0.2.8",
+    "numeral": "2.0.6",
     "request": "2.81.0",
     "slimbot": "0.5.9"
   }

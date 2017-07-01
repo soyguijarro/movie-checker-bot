@@ -5,6 +5,7 @@ export const PROPS_FORMATTERS = {
   releaseDate: releaseDate => `📅 ${releaseDate}`,
   countries: countries => `🌐 ${countries}`,
   runtime: runtime => `🕑 ${runtime} min`,
+  revenue: revenue => `💰 ${revenue}`,
   score: score => `⭐ ${score}`,
   genres: genres => `🔖 ${genres}`,
   directors: directors => `🎬 Directed by ${directors}`,

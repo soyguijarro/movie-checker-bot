@@ -1,4 +1,5 @@
 import { isValid, format, getYear, differenceInCalendarYears } from 'date-fns';
+import numeral from 'numeral';
 
 export const isDateValid = dateString => isValid(new Date(dateString));
 
@@ -7,6 +8,13 @@ export const formatDate = date => format(date, 'MMM Do, YYYY');
 export const formatYear = date => getYear(date);
 
 export const getAge = (birth, death) => differenceInCalendarYears(death || new Date(), birth);
+
+export const formatMoney = money => numeral(money).format('$0a');
+
+export const getPercentageGain = (startValue, endValue) => {
+  const value = (endValue - startValue) / startValue;
+  return numeral(value).format('0%');
+};
 
 export const isPositiveInteger = value => Number.isInteger(+value) && +value > 0;
 

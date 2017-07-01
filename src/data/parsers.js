@@ -12,6 +12,10 @@ const parseCountries = (countries = []) => countries.map(country => country.name
 
 const parseRuntime = runtime => (isPositiveInteger(runtime) ? runtime : null);
 
+const parseBudget = budget => (isPositiveInteger(budget) ? budget : null);
+
+const parseRevenue = revenue => (isPositiveInteger(revenue) ? revenue : null);
+
 const isInOneToTenScale = isWithinRange(MIN_SCORE, MAX_SCORE);
 const parseScore = score => (isInOneToTenScale(score) ? score.toFixed(SCORE_DECIMALS) : null);
 
@@ -42,6 +46,8 @@ export const parseMovie = ({
   release_date: releaseDate,
   production_countries: countries,
   runtime,
+  budget,
+  revenue,
   vote_average: score,
   genres,
   crew,
@@ -55,6 +61,8 @@ export const parseMovie = ({
   releaseDate: parseDate(releaseDate),
   countries: parseCountries(countries),
   runtime: parseRuntime(runtime),
+  budget: parseBudget(budget),
+  revenue: parseRevenue(revenue),
   score: parseScore(score),
   genres: parseGenres(genres),
   cast: parseCast(cast),
