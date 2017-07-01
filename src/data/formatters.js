@@ -80,7 +80,7 @@ const getMovieMoney = (movie) => {
 export const getMovieDetails = (movie) => {
   const factsBlock = [
     joinBySpace([getMovieReleaseDate(movie), getMovieRuntime(movie), getMovieScore(movie)]),
-    getMovieGenres(movie), getMovieCountries(movie), getMovieMoney(movie),
+    getMovieMoney(movie), getMovieGenres(movie), getMovieCountries(movie),
   ];
   const castAndCrewBlock = [getMovieDirectors(movie), getMovieWriters(movie), getMovieCast(movie)];
 
