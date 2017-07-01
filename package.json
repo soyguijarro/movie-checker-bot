@@ -12,7 +12,8 @@
     "precommit": "npm run lint",
     "predeploy": "now ls movie-checker-bot > /dev/null 2>&1 && now rm -y movie-checker-bot || :",
     "deploy": "now --dotenv --public",
-    "postdeploy": "now scale $NOW_URL 1"
+    "postdeploy": "now scale $NOW_URL 1",
+    "postversion": "git push --follow-tags origin master && npm run deploy"
   },
   "author": {
     "name": "Ramón Guijarro",
